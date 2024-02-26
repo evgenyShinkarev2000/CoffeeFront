@@ -1,8 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { MainPage } from 'src/pages/MainPage';
 
-function App()
-{
+function App() {
   return (
     <Routes>
       <Route path='/*' Component={MainPage}></Route>
