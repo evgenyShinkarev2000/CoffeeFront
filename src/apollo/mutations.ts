@@ -17,6 +17,14 @@ mutation UpdateTextLecture($updateTextLectureInput: UpdateTextLectureInput!){
 }
 `);
 
+export const REMOVE_TEXT_LECTURE = gql(`
+mutation RemoveTextLecture($removeTextLectureInput: RemoveTextLectureInput!){
+    removeTextLecture(removeTextLectureInput: $removeTextLectureInput){
+        ...TextLectureOwn
+    }
+}
+`);
+
 export const ADD_VIDEO_LECTURE = gql(`
 mutation AddVideoLecture($addVideoLectureInput: AddVideoLectureInput!){
     addVideoLecture(addVideoLectureInput: $addVideoLectureInput){
@@ -28,6 +36,14 @@ mutation AddVideoLecture($addVideoLectureInput: AddVideoLectureInput!){
 export const UPDATE_VIDEO_LECTURE = gql(`
 mutation UpdateVideoLecture($updateVideoLectureInput: UpdateVideoLectureInput!){
     updateVideoLecture(updateVideoLectureInput: $updateVideoLectureInput){
+        ...VideoLectureOwn
+    }
+}
+`);
+
+export const REMOVE_VIDEO_LECTURE = gql(`
+mutation RemoveVideoLecture($removeVideoLectureInput: RemoveVideoLectureInput!){
+    removeVideoLecture(removeVideoLectureInput: $removeVideoLectureInput){
         ...VideoLectureOwn
     }
 }

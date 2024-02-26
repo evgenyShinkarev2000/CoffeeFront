@@ -12,6 +12,6 @@ export const VIDEO_LECTURE_OWN = gql(`
 fragment VideoLectureOwn on VideoLecture{
     id
     name
-    embed
+    source
 }
 `);

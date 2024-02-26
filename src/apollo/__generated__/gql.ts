@@ -13,8 +13,16 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\nquery GetTextLectures{\n    textLectures{\n        id\n        name\n        content\n    }\n}\n": types.GetTextLecturesDocument,
-    "\nquery GetVideoLectures{\n    videoLectures{\n        id\n        name\n        embed\n    }\n}\n": types.GetVideoLecturesDocument,
+    "\nfragment TextLectureOwn on TextLecture{\n    id\n    name\n    content\n}\n": types.TextLectureOwnFragmentDoc,
+    "\nfragment VideoLectureOwn on VideoLecture{\n    id\n    name\n    source\n}\n": types.VideoLectureOwnFragmentDoc,
+    "\nmutation AddTextLecture($addTextLectureInput: AddTextLectureInput!){\n    addTextLecture(addTextLectureInput: $addTextLectureInput){\n        ...TextLectureOwn\n\n    }\n}\n": types.AddTextLectureDocument,
+    "\nmutation UpdateTextLecture($updateTextLectureInput: UpdateTextLectureInput!){\n    updateTextLecture(updateTextLectureInput: $updateTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n": types.UpdateTextLectureDocument,
+    "\nmutation RemoveTextLecture($removeTextLectureInput: RemoveTextLectureInput!){\n    removeTextLecture(removeTextLectureInput: $removeTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n": types.RemoveTextLectureDocument,
+    "\nmutation AddVideoLecture($addVideoLectureInput: AddVideoLectureInput!){\n    addVideoLecture(addVideoLectureInput: $addVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n": types.AddVideoLectureDocument,
+    "\nmutation UpdateVideoLecture($updateVideoLectureInput: UpdateVideoLectureInput!){\n    updateVideoLecture(updateVideoLectureInput: $updateVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n": types.UpdateVideoLectureDocument,
+    "\nmutation RemoveVideoLecture($removeVideoLectureInput: RemoveVideoLectureInput!){\n    removeVideoLecture(removeVideoLectureInput: $removeVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n": types.RemoveVideoLectureDocument,
+    "\nquery GetTextLectures{\n    textLectures{\n        ...TextLectureOwn\n    }\n}\n": types.GetTextLecturesDocument,
+    "\nquery GetVideoLectures{\n    videoLectures{\n        ...VideoLectureOwn\n    }\n}\n": types.GetVideoLecturesDocument,
 };
 
 /**
@@ -34,11 +42,43 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetTextLectures{\n    textLectures{\n        id\n        name\n        content\n    }\n}\n"): (typeof documents)["\nquery GetTextLectures{\n    textLectures{\n        id\n        name\n        content\n    }\n}\n"];
+export function gql(source: "\nfragment TextLectureOwn on TextLecture{\n    id\n    name\n    content\n}\n"): (typeof documents)["\nfragment TextLectureOwn on TextLecture{\n    id\n    name\n    content\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetVideoLectures{\n    videoLectures{\n        id\n        name\n        embed\n    }\n}\n"): (typeof documents)["\nquery GetVideoLectures{\n    videoLectures{\n        id\n        name\n        embed\n    }\n}\n"];
+export function gql(source: "\nfragment VideoLectureOwn on VideoLecture{\n    id\n    name\n    source\n}\n"): (typeof documents)["\nfragment VideoLectureOwn on VideoLecture{\n    id\n    name\n    source\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation AddTextLecture($addTextLectureInput: AddTextLectureInput!){\n    addTextLecture(addTextLectureInput: $addTextLectureInput){\n        ...TextLectureOwn\n\n    }\n}\n"): (typeof documents)["\nmutation AddTextLecture($addTextLectureInput: AddTextLectureInput!){\n    addTextLecture(addTextLectureInput: $addTextLectureInput){\n        ...TextLectureOwn\n\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation UpdateTextLecture($updateTextLectureInput: UpdateTextLectureInput!){\n    updateTextLecture(updateTextLectureInput: $updateTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n"): (typeof documents)["\nmutation UpdateTextLecture($updateTextLectureInput: UpdateTextLectureInput!){\n    updateTextLecture(updateTextLectureInput: $updateTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation RemoveTextLecture($removeTextLectureInput: RemoveTextLectureInput!){\n    removeTextLecture(removeTextLectureInput: $removeTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n"): (typeof documents)["\nmutation RemoveTextLecture($removeTextLectureInput: RemoveTextLectureInput!){\n    removeTextLecture(removeTextLectureInput: $removeTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation AddVideoLecture($addVideoLectureInput: AddVideoLectureInput!){\n    addVideoLecture(addVideoLectureInput: $addVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n"): (typeof documents)["\nmutation AddVideoLecture($addVideoLectureInput: AddVideoLectureInput!){\n    addVideoLecture(addVideoLectureInput: $addVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation UpdateVideoLecture($updateVideoLectureInput: UpdateVideoLectureInput!){\n    updateVideoLecture(updateVideoLectureInput: $updateVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n"): (typeof documents)["\nmutation UpdateVideoLecture($updateVideoLectureInput: UpdateVideoLectureInput!){\n    updateVideoLecture(updateVideoLectureInput: $updateVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation RemoveVideoLecture($removeVideoLectureInput: RemoveVideoLectureInput!){\n    removeVideoLecture(removeVideoLectureInput: $removeVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n"): (typeof documents)["\nmutation RemoveVideoLecture($removeVideoLectureInput: RemoveVideoLectureInput!){\n    removeVideoLecture(removeVideoLectureInput: $removeVideoLectureInput){\n        ...VideoLectureOwn\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetTextLectures{\n    textLectures{\n        ...TextLectureOwn\n    }\n}\n"): (typeof documents)["\nquery GetTextLectures{\n    textLectures{\n        ...TextLectureOwn\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetVideoLectures{\n    videoLectures{\n        ...VideoLectureOwn\n    }\n}\n"): (typeof documents)["\nquery GetVideoLectures{\n    videoLectures{\n        ...VideoLectureOwn\n    }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

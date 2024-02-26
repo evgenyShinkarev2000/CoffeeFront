@@ -16,11 +16,11 @@ export const textLectureToUpdateInput: DataToInputMapper<TextLecture, UpdateText
 
 export const videoLectureToAddInput: DataToInputMapper<DeepPartial<VideoLecture>, AddVideoLectureInput> = (videoLecture) => ({
     name: videoLecture.name,
-    embed: videoLecture.embed,
+    source: videoLecture.source,
 });
 
 export const videoLectureToUpdateInput: DataToInputMapper<VideoLecture, UpdateVideoLectureInput> = (videoLecture) => ({
     id: videoLecture.id,
     name: videoLecture.name,
-    emded: videoLecture.embed,
+    source: videoLecture.source,
 });
