@@ -1,10 +1,12 @@
 import { AppBar, Container, Tab, Tabs } from "@mui/material";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { EducationAdminPage } from "./EducationAdminPage";
+import { EducationAdminPage } from "./EducationAdminPage/EducationAdminPage";
 import { useTabsAdapter } from "src/hooks/TabsAdapter";
+import { EducationPage } from "./EducationPage/EducationPage";
 
 export enum PageName {
   EducationAdmin = "EducationAdmin",
+  Education = "Education",
 }
 
 export function MainPage() {
@@ -21,12 +23,14 @@ export function MainPage() {
         <Container>
           <Tabs value={activePage} onChange={handleTabClick} >
             <Tab value={PageName.EducationAdmin} label={"Обучение админ"} />
+            <Tab value={PageName.Education} label={"Обучение"} />
           </Tabs>
         </Container>
       </AppBar>
 
       <Routes>
         <Route path={PageName.EducationAdmin + "/*"} Component={EducationAdminPage} />
+        <Route path={PageName.Education + "/*"} Component={EducationPage} />
         <Route path="*" element={<Navigate to={PageName.EducationAdmin} />} />
       </Routes>
     </div>
