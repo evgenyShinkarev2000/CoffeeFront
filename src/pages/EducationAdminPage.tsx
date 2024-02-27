@@ -1,9 +1,8 @@
 import { Box, Container, Tab, Tabs } from "@mui/material";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { VideoLectureAdminPage } from "./VideoLectureAdminPage";
 import { AddVideoLectureAdminPage } from "./AddVideoLectureAdminPage";
-import { useState } from "react";
-import { getActivePageValue } from "src/helpers/getActivePageValue";
+import { useTabsAdapter } from "src/hooks/TabsAdapter";
 
 enum PageName {
   VideoLecture = "VideoLecture",
@@ -13,14 +12,10 @@ enum PageName {
 
 export function EducationAdminPage() {
   const navigate = useNavigate();
-  const location = useLocation();
-debugger;
-  const [activePage, setActivePage] = useState(getActivePageValue(location.pathname, Object.values(PageName)));
+  const activePage = useTabsAdapter(PageName);
   function handleTabClick(event: React.SyntheticEvent, route: string) {
     navigate(route);
-    setActivePage(route);
   }
-  debugger;
   return <div style={{ display: "grid", gridAutoRows: "min-content auto" }}>
     <Box sx={{ borderBottom: 1, borderColor: "divider", height: "min-content" }}>
       <Container>
@@ -35,6 +30,7 @@ debugger;
     <Routes>
       <Route path={PageName.VideoLecture} Component={VideoLectureAdminPage} />
       <Route path={PageName.AddVideoLecture} Component={AddVideoLectureAdminPage} />
+      <Route path="*" element={<Navigate to={PageName.VideoLecture} />} />
     </Routes>
   </div>
 }

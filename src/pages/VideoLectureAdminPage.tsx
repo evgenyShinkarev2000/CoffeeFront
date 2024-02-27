@@ -46,7 +46,7 @@ const columns: GridColDef[] = [
 
 
 export function VideoLectureAdminPage() {
-  const { data } = useQuery(Queries.GET_VIDEO_LECTURES);
+  const { data } = useQuery(Queries.GET_VIDEO_LECTURES, { fetchPolicy: "cache-and-network" });
   const [update, updateState] = useMutation(Mutations.UPDATE_VIDEO_LECTURE);
   const [remove, removeState] = useMutation(Mutations.REMOVE_VIDEO_LECTURE);
 
@@ -78,6 +78,12 @@ export function VideoLectureAdminPage() {
         removeVideoLectureInput: {
           id: formModel.id!
         }
+      },
+      update: (cache, result) => {
+        cache.updateQuery({ query: Queries.GET_VIDEO_LECTURES }, (data) => ({
+          ...data,
+          videoLectures: data?.videoLectures?.filter(vl => vl?.id != result.data?.removeVideoLecture?.id),
+        }));
       }
     }).then(() => setIsDialogOpen(false));
   }, [remove]);

@@ -1,7 +1,7 @@
 import { AppBar, Container, Tab, Tabs } from "@mui/material";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { EducationAdminPage } from "./EducationAdminPage";
-import { getActivePageValue } from "../helpers/getActivePageValue";
+import { useTabsAdapter } from "src/hooks/TabsAdapter";
 
 export enum PageName {
   EducationAdmin = "EducationAdmin",
@@ -9,8 +9,7 @@ export enum PageName {
 
 export function MainPage() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const activePage = getActivePageValue(location.pathname, Object.values(PageName));
+  const activePage = useTabsAdapter(PageName);
 
   function handleTabClick(event: React.SyntheticEvent, route: string) {
     navigate(route);
