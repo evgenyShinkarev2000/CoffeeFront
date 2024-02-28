@@ -48,3 +48,27 @@ mutation RemoveVideoLecture($removeVideoLectureInput: RemoveVideoLectureInput!){
     }
 }
 `);
+
+export const ADD_PERSON = gql(`
+mutation AddPerson($addPersonInput: AddPersonInput!){
+    addPerson(addPersonInput: $addPersonInput){
+      ...PersonOwn
+    }
+  }
+`);
+
+export const UPDATE_PERSON = gql(`
+mutation UpdatePerson($updatePersonInput: UpdatePersonInput!){
+    updatePerson(updatePersonInput: $updatePersonInput){
+      ...PersonOwn
+    }
+  }
+`);
+
+export const REMOVE_PERSON = gql(`
+mutation RemovePerson($removePersonInput: RemovePersonInput!){
+    removePerson(removePersonInput: $removePersonInput){
+      ...PersonOwn
+    }
+  }
+`);

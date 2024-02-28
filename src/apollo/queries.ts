@@ -15,3 +15,26 @@ query GetVideoLectures{
     }
 }
 `);
+
+export const GET_PEOPLE = gql(`
+query GetPeople{
+    people{
+      ...PersonOwn
+    }
+  }
+`);
+
+export const GET_KNOWN_ROLES = gql(`
+query GetKnownRoles{
+    knownRoles
+  }
+`);
+
+export const GET_PEOPLE_AND_KNOWN_ROLES = gql(`
+query GetPeopleAndKnownRoles{
+    people{
+      ...PersonOwn
+    }
+    knownRoles
+  }
+`);

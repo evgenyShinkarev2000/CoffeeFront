@@ -1,5 +1,5 @@
 import { DeepPartial } from 'src/helpers/DeepPartial';
-import { AddTextLectureInput, AddVideoLectureInput, TextLecture, UpdateTextLectureInput, UpdateVideoLectureInput, VideoLecture } from './__generated__/graphql';
+import { AddPersonInput, AddTextLectureInput, AddVideoLectureInput, Person, TextLecture, UpdatePersonInput, UpdateTextLectureInput, UpdateVideoLectureInput, VideoLecture } from './__generated__/graphql';
 
 type DataToInputMapper<Tin, Tout> = (obj: Tin) => Tout;
 
@@ -23,4 +23,17 @@ export const videoLectureToUpdateInput: DataToInputMapper<VideoLecture, UpdateVi
     id: videoLecture.id,
     name: videoLecture.name,
     source: videoLecture.source,
+});
+
+export const personToAddInput: DataToInputMapper<Person, AddPersonInput> = (person) => ({
+    name: person.name,
+    surname: person.surname,
+    patronymic: person.patronymic,
+});
+
+export const personToUpdateInput: DataToInputMapper<Person, UpdatePersonInput> = (person) => ({
+    id: person.id,
+    name: person.name,
+    surname: person.surname,
+    patronymic: person.patronymic,
 });

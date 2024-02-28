@@ -15,3 +15,12 @@ fragment VideoLectureOwn on VideoLecture{
     source
 }
 `);
+
+export const PERSON_OWN = gql(`
+fragment PersonOwn on Person{
+    id
+    name
+    surname
+    patronymic
+  }
+`);

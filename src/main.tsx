@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { appoloClient } from 'src/apollo/client.ts'
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { MapperProvider } from './hooks/Mapper.tsx'
+import { CurrentUserProvider } from './hooks/CurrentUser.tsx'
 
 loadDevMessages();
 loadErrorMessages();
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ApolloProvider client={appoloClient}>
       <BrowserRouter>
         <MapperProvider>
-          <App />
+          <CurrentUserProvider>
+            <App />
+          </CurrentUserProvider>
         </MapperProvider>
       </BrowserRouter>
     </ApolloProvider>
