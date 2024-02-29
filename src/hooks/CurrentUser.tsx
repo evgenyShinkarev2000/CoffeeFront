@@ -1,4 +1,6 @@
-import { PropsWithChildren, createContext, useCallback, useContext, useMemo, useState } from "react";
+import { useApolloClient } from "@apollo/client";
+import { PropsWithChildren, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { buildApolloLink } from "src/apollo/client";
 
 type CurrentUserProviderProps = PropsWithChildren & {
 
@@ -20,25 +22,46 @@ type CurrentUserContexType = {
 const CurrentUserContext = createContext<CurrentUserContexType>({} as CurrentUserContexType);
 
 export function CurrentUserProvider(props: CurrentUserProviderProps) {
-  const [currentUser, setCurrentUserState] = useState(() => {
-    const currentUserString = localStorage.getItem("currentUser");
+  const apolloClient = useApolloClient();
 
-    return currentUserString == null ? null : JSON.parse(currentUserString) as CurrentUser;
-  });
+  const broadCastChannelRef = useRef<BroadcastChannel>();
+  const [currentUser, setCurrentUser] = useState(() => getCurrentUserLocalStorage());
 
-  const setCurrentUser = useCallback((user: CurrentUser) => {
+  useEffect(() => {
+    const broadCastChannel = new BroadcastChannel("CurrentUser");
+    const hadnleMessage = (event: MessageEvent<CurrentUser>) => {
+      apolloClient.setLink(buildApolloLink({ currentUserId: event.data.id, currentUserRole: event.data.role }));
+      setCurrentUser(event.data);
+    }
+    broadCastChannel.addEventListener("message", hadnleMessage);
+    broadCastChannelRef.current = broadCastChannel;
+
+    return () => {
+      broadCastChannel.removeEventListener("message", hadnleMessage);
+      broadCastChannel.close();
+    };
+  }, [setCurrentUser, apolloClient]);
+
+  const handleSetCurrentUser = useCallback((user: CurrentUser) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
-    setCurrentUserState(user);
-  }, [setCurrentUserState]);
+    setCurrentUser(user);
+    broadCastChannelRef.current?.postMessage(user);
+  }, [setCurrentUser]);
 
   const currentUserContext: CurrentUserContexType = useMemo(() => ({
     currentUser,
-    setCurrentUser,
-  }), [currentUser, setCurrentUser]);
+    setCurrentUser: handleSetCurrentUser,
+  }), [currentUser, handleSetCurrentUser]);
 
   return <CurrentUserContext.Provider value={currentUserContext}>
     {props.children}
   </CurrentUserContext.Provider>
+}
+
+export function getCurrentUserLocalStorage() {
+  const currentUserString = localStorage.getItem("currentUser");
+
+  return currentUserString == null ? null : JSON.parse(currentUserString) as CurrentUser;
 }
 
 export function useCurrentUser() {
