@@ -53,7 +53,7 @@ export function ProfilePage() {
             render={(controllerParams) =>
               <Autocomplete
                 value={controllerParams.field.value as Person ?? null}
-                onChange={(event, value) => controllerParams.field.onChange(value)}
+                onChange={(_event, value) => controllerParams.field.onChange(value)}
                 options={data?.people ?? []}
                 getOptionLabel={p => `${p?.id} ${p?.surname} ${p?.name} ${p?.patronymic}`}
                 isOptionEqualToValue={(option, value) => option?.id == value?.id}
@@ -75,7 +75,7 @@ export function ProfilePage() {
             render={(controllerParams) =>
               <Autocomplete
                 value={controllerParams.field.value as string ?? null}
-                onChange={(event, value) => controllerParams.field.onChange(value)}
+                onChange={(_event, value) => controllerParams.field.onChange(value)}
                 options={data?.knownRoles ?? []}
                 disableClearable
                 renderInput={(params) =>

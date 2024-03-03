@@ -1,10 +1,10 @@
 import { Box, Container, Tab, Tabs } from "@mui/material";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { VideoLectureAdminPage } from "./VideoLectureAdminPage";
-import { AddVideoLectureAdminPage } from "./AddVideoLectureAdminPage";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useTabsAdapter } from "src/hooks/TabsAdapter";
-import { TextLectureAdminPage } from "./TextLectureAdminPage";
 import { AddTextLectureAdminPage } from "./AddTextLectureAdminPage";
+import { AddVideoLectureAdminPage } from "./AddVideoLectureAdminPage";
+import { TextLectureAdminPage } from "./TextLectureAdminPage";
+import { VideoLectureAdminPage } from "./VideoLectureAdminPage";
 
 enum PageName {
   VideoLecture = "VideoLecture",

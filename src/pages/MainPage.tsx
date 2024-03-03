@@ -1,11 +1,11 @@
-import { AppBar, Box, Container, Stack, Tab, Tabs, Typography } from "@mui/material";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { AppBar, Box, Container, Stack, Tab, Tabs } from "@mui/material";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { CurrentUser } from "src/components/CurrentUser";
 import { useTabsAdapter } from "src/hooks/TabsAdapter";
 import { EducationAdminPage } from "./EducationAdminPage/EducationAdminPage";
 import { EducationPage } from "./EducationPage/EducationPage";
 import { PersonAdminPage } from "./PersonAdminPage/PersonAdminPage";
 import { ProfilePage } from "./ProfilePage/ProfilePage";
-import { CurrentUser } from "src/components/CurrentUser";
 
 export enum PageName {
   EducationAdmin = "EducationAdmin",

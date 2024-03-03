@@ -1,5 +1,5 @@
 import { Box, Container, Tab, Tabs } from "@mui/material";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useTabsAdapter } from "src/hooks/TabsAdapter";
 import { EducationVideoLecturePage } from "./EducationVideoLecturePage";
 
@@ -8,11 +8,7 @@ enum PageName {
 }
 
 export function EducationPage() {
-  const navigate = useNavigate();
   const [activePage, setActivePage] = useTabsAdapter(PageName);
-  function handleTabClick(event: React.SyntheticEvent, route: string) {
-    navigate(route);
-  }
 
   return <div style={{ display: "grid", gridAutoRows: "min-content auto" }}>
     <Box sx={{ borderBottom: 1, borderColor: "divider", height: "min-content" }}>

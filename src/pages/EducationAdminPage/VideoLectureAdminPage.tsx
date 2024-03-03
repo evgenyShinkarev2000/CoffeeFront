@@ -47,8 +47,8 @@ const columns: GridColDef[] = [
 
 export function VideoLectureAdminPage() {
   const { data } = useQuery(Queries.GET_VIDEO_LECTURES, { fetchPolicy: "cache-and-network" });
-  const [update, updateState] = useMutation(Mutations.UPDATE_VIDEO_LECTURE);
-  const [remove, removeState] = useMutation(Mutations.REMOVE_VIDEO_LECTURE);
+  const [update, _updateState] = useMutation(Mutations.UPDATE_VIDEO_LECTURE);
+  const [remove, _removeState] = useMutation(Mutations.REMOVE_VIDEO_LECTURE);
 
   const apiRef = useGridApiRef();
   const [isDialogOpen, setIsDialogOpen] = useState(false);

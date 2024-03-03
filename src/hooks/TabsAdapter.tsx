@@ -15,7 +15,7 @@ export function useTabsAdapter(pageNameEnum: object): [activePage: string | fals
     setActivePage(findActivePage(pageNames, locationTokens));
   }, [locationTokens, pageNames]);
 
-  const setActivePageCallBack = useCallback((event: React.SyntheticEvent, route: string) => {
+  const setActivePageCallBack = useCallback((_event: React.SyntheticEvent, route: string) => {
     setActivePage(findActivePage(pageNames, locationTokens));
     navigate(route);
   }, [navigate]);
