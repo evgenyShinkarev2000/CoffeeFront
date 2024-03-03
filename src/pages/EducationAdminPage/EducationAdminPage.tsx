@@ -14,15 +14,12 @@ enum PageName {
 }
 
 export function EducationAdminPage() {
-  const navigate = useNavigate();
-  const activePage = useTabsAdapter(PageName);
-  function handleTabClick(event: React.SyntheticEvent, route: string) {
-    navigate(route);
-  }
+  const [activePage, setActivePage] = useTabsAdapter(PageName);
+
   return <div style={{ display: "grid", gridAutoRows: "min-content auto" }}>
     <Box sx={{ borderBottom: 1, borderColor: "divider", height: "min-content" }}>
       <Container>
-        <Tabs value={activePage} onChange={handleTabClick}>
+        <Tabs value={activePage} onChange={setActivePage}>
           <Tab value={PageName.VideoLecture} label="Видео" />
           <Tab value={PageName.AddVideoLecture} label="Добавить видео" />
           <Tab value={PageName.TextLecture} label="Конспекты" />

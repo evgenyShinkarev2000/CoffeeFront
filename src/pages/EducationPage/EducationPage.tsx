@@ -9,7 +9,7 @@ enum PageName {
 
 export function EducationPage() {
   const navigate = useNavigate();
-  const activePage = useTabsAdapter(PageName);
+  const [activePage, setActivePage] = useTabsAdapter(PageName);
   function handleTabClick(event: React.SyntheticEvent, route: string) {
     navigate(route);
   }
@@ -17,7 +17,7 @@ export function EducationPage() {
   return <div style={{ display: "grid", gridAutoRows: "min-content auto" }}>
     <Box sx={{ borderBottom: 1, borderColor: "divider", height: "min-content" }}>
       <Container>
-        <Tabs value={activePage} onChange={handleTabClick}>
+        <Tabs value={activePage} onChange={setActivePage}>
           <Tab value={PageName.VideoLecture} label="Видео" />
         </Tabs>
       </Container>

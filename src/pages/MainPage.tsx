@@ -15,26 +15,21 @@ export enum PageName {
 }
 
 export function MainPage() {
-  const navigate = useNavigate();
-  const activePage = useTabsAdapter(PageName);
-
-  function handleTabClick(event: React.SyntheticEvent, route: string) {
-    navigate(route);
-  }
+  const [activePage, setActivePage] = useTabsAdapter(PageName);
 
   return <>
     <div style={{ display: "grid", gridAutoRows: "min-content auto", maxHeight: "100vh", height: "100vh" }}>
       <AppBar color={"transparent"} position="relative">
         <Container>
           <Stack justifyContent="space-between" direction="row" gap={1} alignItems="center">
-            <Tabs value={activePage} onChange={handleTabClick} >
+            <Tabs value={activePage} onChange={setActivePage} >
               <Tab value={PageName.EducationAdmin} label={"Обучение админ"} />
               <Tab value={PageName.Education} label={"Обучение"} />
               <Tab value={PageName.PersonAdmin} label="Персонал админ" />
               <Tab value={PageName.Profile} label="Профиль" />
             </Tabs>
             <Box flex={1} />
-            <CurrentUser/>
+            <CurrentUser />
           </Stack>
         </Container>
       </AppBar>
