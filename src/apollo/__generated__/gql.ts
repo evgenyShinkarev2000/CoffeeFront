@@ -16,6 +16,7 @@ const documents = {
     "\nfragment TextLectureOwn on TextLecture{\n    id\n    name\n    content\n}\n": types.TextLectureOwnFragmentDoc,
     "\nfragment VideoLectureOwn on VideoLecture{\n    id\n    name\n    source\n}\n": types.VideoLectureOwnFragmentDoc,
     "\nfragment PersonOwn on Person{\n    id\n    name\n    surname\n    patronymic\n  }\n": types.PersonOwnFragmentDoc,
+    "\nfragment VideoLectureWithIsWatched on VideoLectureWithIsWatched{\n    id\n    name\n    source\n    isWatched\n  }\n": types.VideoLectureWithIsWatchedFragmentDoc,
     "\nmutation AddTextLecture($addTextLectureInput: AddTextLectureInput!){\n    addTextLecture(addTextLectureInput: $addTextLectureInput){\n        ...TextLectureOwn\n\n    }\n}\n": types.AddTextLectureDocument,
     "\nmutation UpdateTextLecture($updateTextLectureInput: UpdateTextLectureInput!){\n    updateTextLecture(updateTextLectureInput: $updateTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n": types.UpdateTextLectureDocument,
     "\nmutation RemoveTextLecture($removeTextLectureInput: RemoveTextLectureInput!){\n    removeTextLecture(removeTextLectureInput: $removeTextLectureInput){\n        ...TextLectureOwn\n    }\n}\n": types.RemoveTextLectureDocument,
@@ -25,11 +26,13 @@ const documents = {
     "\nmutation AddPerson($addPersonInput: AddPersonInput!){\n    addPerson(addPersonInput: $addPersonInput){\n      ...PersonOwn\n    }\n  }\n": types.AddPersonDocument,
     "\nmutation UpdatePerson($updatePersonInput: UpdatePersonInput!){\n    updatePerson(updatePersonInput: $updatePersonInput){\n      ...PersonOwn\n    }\n  }\n": types.UpdatePersonDocument,
     "\nmutation RemovePerson($removePersonInput: RemovePersonInput!){\n    removePerson(removePersonInput: $removePersonInput){\n      ...PersonOwn\n    }\n  }\n": types.RemovePersonDocument,
+    "\nmutation SetVideoLectureWatched($setVideoLectureWatchedInput: SetVideoLectureWatchedInput!){\n    setVideoLectureWatched(setVideoLectureWatchedInput: $setVideoLectureWatchedInput){\n      id\n      isWatched\n    }\n  }": types.SetVideoLectureWatchedDocument,
     "\nquery GetTextLectures{\n    textLectures{\n        ...TextLectureOwn\n    }\n}\n": types.GetTextLecturesDocument,
     "\nquery GetVideoLectures{\n    videoLectures{\n        ...VideoLectureOwn\n    }\n}\n": types.GetVideoLecturesDocument,
     "\nquery GetPeople{\n    people{\n      ...PersonOwn\n    }\n  }\n": types.GetPeopleDocument,
     "\nquery GetKnownRoles{\n    knownRoles\n  }\n": types.GetKnownRolesDocument,
     "\nquery GetPeopleAndKnownRoles{\n    people{\n      ...PersonOwn\n    }\n    knownRoles\n  }\n": types.GetPeopleAndKnownRolesDocument,
+    "\nquery GetVideoLectureWatchedByCurrentPerson {\n  videoLecturesWithIsWatchedByCurrentPerson{\n    id\n    name\n    source\n    isWatched\n  }\n}\n": types.GetVideoLectureWatchedByCurrentPersonDocument,
 };
 
 /**
@@ -58,6 +61,10 @@ export function gql(source: "\nfragment VideoLectureOwn on VideoLecture{\n    id
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\nfragment PersonOwn on Person{\n    id\n    name\n    surname\n    patronymic\n  }\n"): (typeof documents)["\nfragment PersonOwn on Person{\n    id\n    name\n    surname\n    patronymic\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nfragment VideoLectureWithIsWatched on VideoLectureWithIsWatched{\n    id\n    name\n    source\n    isWatched\n  }\n"): (typeof documents)["\nfragment VideoLectureWithIsWatched on VideoLectureWithIsWatched{\n    id\n    name\n    source\n    isWatched\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -97,6 +104,10 @@ export function gql(source: "\nmutation RemovePerson($removePersonInput: RemoveP
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\nmutation SetVideoLectureWatched($setVideoLectureWatchedInput: SetVideoLectureWatchedInput!){\n    setVideoLectureWatched(setVideoLectureWatchedInput: $setVideoLectureWatchedInput){\n      id\n      isWatched\n    }\n  }"): (typeof documents)["\nmutation SetVideoLectureWatched($setVideoLectureWatchedInput: SetVideoLectureWatchedInput!){\n    setVideoLectureWatched(setVideoLectureWatchedInput: $setVideoLectureWatchedInput){\n      id\n      isWatched\n    }\n  }"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\nquery GetTextLectures{\n    textLectures{\n        ...TextLectureOwn\n    }\n}\n"): (typeof documents)["\nquery GetTextLectures{\n    textLectures{\n        ...TextLectureOwn\n    }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -114,6 +125,10 @@ export function gql(source: "\nquery GetKnownRoles{\n    knownRoles\n  }\n"): (t
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\nquery GetPeopleAndKnownRoles{\n    people{\n      ...PersonOwn\n    }\n    knownRoles\n  }\n"): (typeof documents)["\nquery GetPeopleAndKnownRoles{\n    people{\n      ...PersonOwn\n    }\n    knownRoles\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetVideoLectureWatchedByCurrentPerson {\n  videoLecturesWithIsWatchedByCurrentPerson{\n    id\n    name\n    source\n    isWatched\n  }\n}\n"): (typeof documents)["\nquery GetVideoLectureWatchedByCurrentPerson {\n  videoLecturesWithIsWatchedByCurrentPerson{\n    id\n    name\n    source\n    isWatched\n  }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

@@ -38,3 +38,14 @@ query GetPeopleAndKnownRoles{
     knownRoles
   }
 `);
+
+export const GET_VIDEO_LECTURES_WITH_ISWATCHED_BY_CURRENT_PERSON = gql(`
+query GetVideoLectureWatchedByCurrentPerson {
+  videoLecturesWithIsWatchedByCurrentPerson{
+    id
+    name
+    source
+    isWatched
+  }
+}
+`);

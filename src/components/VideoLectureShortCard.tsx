@@ -1,11 +1,8 @@
-import { Button, Card, CardContent, Stack, Typography } from "@mui/material"
+import { Button, Card, CardContent, FormControlLabel, Stack, Switch, ToggleButton, Typography } from "@mui/material"
+import { VideoLectureWithIsWatched } from "src/apollo/__generated__/graphql"
+import { DeepPartial } from "src/helpers/DeepPartial";
 
-export type VideoLectureShortCardModel = {
-  id: number,
-  name: string,
-  source: string,
-  isWatched: boolean,
-}
+export type VideoLectureShortCardModel = DeepPartial<VideoLectureWithIsWatched>;
 
 type VideoLectureShortCardProps = {
   model: VideoLectureShortCardModel,
@@ -16,12 +13,15 @@ type VideoLectureShortCardProps = {
 export function VideoLectureShortCard(props: VideoLectureShortCardProps) {
   return <Card>
     <CardContent>
-      <Typography>{props.model.name}</Typography>
       <Stack gap={1}>
-        <img src={`http://i3.ytimg.com/vi/${props.model.source}/hqdefault.jpg`} />
-        <Button variant="outlined" color={props.model.isWatched ? "success" : "info"}>
-          {props.model.isWatched ? "просмторено" : "просмотреть"}
-        </Button>
+        <Typography align="center">{props.model.name}</Typography>
+        <img src={`http://i3.ytimg.com/vi/${props.model.source}/hqdefault.jpg`} onClick={props.onOpen} width={340} height={250} />
+        <Stack direction="row" justifyContent="flex-end">
+          <FormControlLabel
+            label="просмотрено"
+            labelPlacement="start"
+            control={<Switch value={props.model.isWatched!} onChange={props.onSetWatched} />} />
+        </Stack>
       </Stack>
     </CardContent>
   </Card>

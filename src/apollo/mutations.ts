@@ -72,3 +72,12 @@ mutation RemovePerson($removePersonInput: RemovePersonInput!){
     }
   }
 `);
+
+export const SET_VIDEO_LECTURE_WATCHED = gql(`
+mutation SetVideoLectureWatched($setVideoLectureWatchedInput: SetVideoLectureWatchedInput!){
+    setVideoLectureWatched(setVideoLectureWatchedInput: $setVideoLectureWatchedInput){
+      id
+      isWatched
+    }
+  }`
+);

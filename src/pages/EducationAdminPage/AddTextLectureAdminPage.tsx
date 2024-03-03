@@ -8,7 +8,7 @@ import { useMapper } from "src/hooks/Mapper";
 
 export function AddTextLectureAdminPage() {
   const mapper = useMapper();
-  const [add, addState] = useMutation(Mutations.ADD_TEXT_LECTURE);
+  const [add, _addState] = useMutation(Mutations.ADD_TEXT_LECTURE);
   const [key, setKey] = useState(0);
   const handleAdd = useCallback((formModel: TextLectureFormModel) => {
     add({

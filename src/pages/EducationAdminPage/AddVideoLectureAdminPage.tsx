@@ -8,7 +8,7 @@ import { useMapper } from "src/hooks/Mapper";
 
 export function AddVideoLectureAdminPage() {
   const mapper = useMapper();
-  const [add, addState] = useMutation(Mutations.ADD_VIDEO_LECTURE);
+  const [add, _addState] = useMutation(Mutations.ADD_VIDEO_LECTURE);
   const [key, setKey] = useState(0);
   const handleAdd = useCallback((formModel: VideoLectureFormModel) => {
     add({

@@ -50,8 +50,8 @@ export function TextLectureAdminPage() {
   const currentModel = useRef<TextLectureFormModel>({});
 
   const { data } = useQuery(Queries.GET_TEXT_LECTURES, { fetchPolicy: "cache-and-network" });
-  const [update, updateState] = useMutation(Mutations.UPDATE_TEXT_LECTURE);
-  const [remove, removeState] = useMutation(Mutations.REMOVE_TEXT_LECTURE);
+  const [update, _updateState] = useMutation(Mutations.UPDATE_TEXT_LECTURE);
+  const [remove, _removeState] = useMutation(Mutations.REMOVE_TEXT_LECTURE);
 
   useEffect(() => {
     //@ts-ignore

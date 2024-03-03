@@ -24,3 +24,12 @@ fragment PersonOwn on Person{
     patronymic
   }
 `);
+
+export const VIDEO_LECTURE_WITH_ISWATCHED_BY_CURRENT_PERSON = gql(`
+fragment VideoLectureWithIsWatched on VideoLectureWithIsWatched{
+    id
+    name
+    source
+    isWatched
+  }
+`);
