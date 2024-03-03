@@ -53,6 +53,10 @@ export type DocumentKind = {
   name?: Maybe<Scalars['String']['output']>;
 };
 
+export type IdInput = {
+  id: Scalars['Int']['input'];
+};
+
 export type Mutations = {
   __typename?: 'Mutations';
   addPerson?: Maybe<Person>;
@@ -61,6 +65,8 @@ export type Mutations = {
   removePerson?: Maybe<Person>;
   removeTextLecture?: Maybe<TextLecture>;
   removeVideoLecture?: Maybe<VideoLecture>;
+  setVideoLectureWatched?: Maybe<SetVideoWatchedModel>;
+  setVideoLectureWatchedAdmin?: Maybe<SetVideoWatchedModel>;
   updatePerson?: Maybe<Person>;
   updateTextLecture?: Maybe<TextLecture>;
   updateVideoLecture?: Maybe<VideoLecture>;
@@ -94,6 +100,16 @@ export type MutationsRemoveTextLectureArgs = {
 
 export type MutationsRemoveVideoLectureArgs = {
   removeVideoLectureInput?: InputMaybe<RemoveVideoLectureInput>;
+};
+
+
+export type MutationsSetVideoLectureWatchedArgs = {
+  setVideoLectureWatchedInput?: InputMaybe<SetVideoLectureWatchedInput>;
+};
+
+
+export type MutationsSetVideoLectureWatchedAdminArgs = {
+  setVideoLectureWatchedAdminInput?: InputMaybe<SetVideoLectureWatchedAdminInput>;
 };
 
 
@@ -140,6 +156,24 @@ export type RemoveTextLectureInput = {
 
 export type RemoveVideoLectureInput = {
   id: Scalars['Int']['input'];
+};
+
+export type SetVideoLectureWatchedAdminInput = {
+  isWatched: Scalars['Boolean']['input'];
+  person?: InputMaybe<IdInput>;
+  videoLecture?: InputMaybe<IdInput>;
+};
+
+export type SetVideoLectureWatchedInput = {
+  isWatched: Scalars['Boolean']['input'];
+  videoLecture?: InputMaybe<IdInput>;
+};
+
+export type SetVideoWatchedModel = {
+  __typename?: 'SetVideoWatchedModel';
+  isWatched: Scalars['Boolean']['output'];
+  personId: Scalars['Int']['output'];
+  videoLectureId: Scalars['Int']['output'];
 };
 
 export type TextLecture = {
@@ -333,6 +367,10 @@ export type DocumentKind = {
   name?: Maybe<Scalars['String']['output']>;
 };
 
+export type IdInput = {
+  id: Scalars['Int']['input'];
+};
+
 export type Mutations = {
   __typename?: 'Mutations';
   addPerson?: Maybe<Person>;
@@ -341,6 +379,8 @@ export type Mutations = {
   removePerson?: Maybe<Person>;
   removeTextLecture?: Maybe<TextLecture>;
   removeVideoLecture?: Maybe<VideoLecture>;
+  setVideoLectureWatched?: Maybe<SetVideoWatchedModel>;
+  setVideoLectureWatchedAdmin?: Maybe<SetVideoWatchedModel>;
   updatePerson?: Maybe<Person>;
   updateTextLecture?: Maybe<TextLecture>;
   updateVideoLecture?: Maybe<VideoLecture>;
@@ -374,6 +414,16 @@ export type MutationsRemoveTextLectureArgs = {
 
 export type MutationsRemoveVideoLectureArgs = {
   removeVideoLectureInput?: InputMaybe<RemoveVideoLectureInput>;
+};
+
+
+export type MutationsSetVideoLectureWatchedArgs = {
+  setVideoLectureWatchedInput?: InputMaybe<SetVideoLectureWatchedInput>;
+};
+
+
+export type MutationsSetVideoLectureWatchedAdminArgs = {
+  setVideoLectureWatchedAdminInput?: InputMaybe<SetVideoLectureWatchedAdminInput>;
 };
 
 
@@ -420,6 +470,24 @@ export type RemoveTextLectureInput = {
 
 export type RemoveVideoLectureInput = {
   id: Scalars['Int']['input'];
+};
+
+export type SetVideoLectureWatchedAdminInput = {
+  isWatched: Scalars['Boolean']['input'];
+  person?: InputMaybe<IdInput>;
+  videoLecture?: InputMaybe<IdInput>;
+};
+
+export type SetVideoLectureWatchedInput = {
+  isWatched: Scalars['Boolean']['input'];
+  videoLecture?: InputMaybe<IdInput>;
+};
+
+export type SetVideoWatchedModel = {
+  __typename?: 'SetVideoWatchedModel';
+  isWatched: Scalars['Boolean']['output'];
+  personId: Scalars['Int']['output'];
+  videoLectureId: Scalars['Int']['output'];
 };
 
 export type TextLecture = {

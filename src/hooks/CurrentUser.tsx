@@ -30,8 +30,11 @@ export function CurrentUserProvider(props: CurrentUserProviderProps) {
   useEffect(() => {
     const broadCastChannel = new BroadcastChannel("CurrentUser");
     const hadnleMessage = (event: MessageEvent<CurrentUser>) => {
-      apolloClient.setLink(buildApolloLink({ currentUserId: event.data.id, currentUserRole: event.data.role }));
       setCurrentUser(event.data);
+      apolloClient.setLink(buildApolloLink({
+        currentUserId: event.data.id,
+        currentUserRole: event.data.role,
+      }));
     }
     broadCastChannel.addEventListener("message", hadnleMessage);
     broadCastChannelRef.current = broadCastChannel;
@@ -45,8 +48,12 @@ export function CurrentUserProvider(props: CurrentUserProviderProps) {
   const handleSetCurrentUser = useCallback((user: CurrentUser) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
     setCurrentUser(user);
+    apolloClient.setLink(buildApolloLink({
+      currentUserId: user.id,
+      currentUserRole: user.role,
+    }));
     broadCastChannelRef.current?.postMessage(user);
-  }, [setCurrentUser]);
+  }, [setCurrentUser, apolloClient]);
 
   const currentUserContext: CurrentUserContexType = useMemo(() => ({
     currentUser,

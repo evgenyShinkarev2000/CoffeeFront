@@ -10,10 +10,12 @@ export type BuildApolloLinkOptions = DeepPartial<{
   currentUserRole: string,
 }>
 
+
 export function buildApolloLink(options?: BuildApolloLinkOptions) {
   const httpLinkOptions: HttpOptions = {
     uri: import.meta.env.VITE_API_GRAPHQL_URI,
   }
+
   if (options) {
     httpLinkOptions.headers = {
       ...httpLinkOptions.headers,
@@ -61,7 +63,7 @@ function buildHeader(options: BuildApolloLinkOptions) {
   return header;
 }
 
-export const appoloClient = new ApolloClient({
+export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
   }),
   connectToDevTools: true,

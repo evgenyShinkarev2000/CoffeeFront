@@ -14,7 +14,7 @@ type DevProfileFormModel = {
 export function ProfilePage() {
   const { data } = useQuery(Queries.GET_PEOPLE_AND_KNOWN_ROLES, { fetchPolicy: "cache-and-network" });
   const { currentUser, setCurrentUser } = useCurrentUser();
-  const { getValues, control, trigger, formState } = useForm({
+  const { getValues, control, trigger} = useForm({
     defaultValues: {
       person: currentUser == null ? null : {
         id: currentUser.id,
