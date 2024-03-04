@@ -17,7 +17,6 @@ export function ProgressPage() {
     return [];
   }, [data]);
 
-
   return <Container style={{ display: "flex", overflow: "auto" }}>
     <Stack direction="column" height="fit-content" gap="16px" justifyContent="space-between" flexGrow={1}>
       {personProgressCardModels.map(model => <PersonProgressCard key={model.person.id} model={model} />)}
