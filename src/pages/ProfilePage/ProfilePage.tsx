@@ -12,7 +12,7 @@ type DevProfileFormModel = {
 }
 
 export function ProfilePage() {
-  const { data } = useQuery(Queries.GET_PEOPLE_AND_KNOWN_ROLES, { fetchPolicy: "cache-and-network" });
+  const { data } = useQuery(Queries.GET_PEOPLE_AND_KNOWN_ROLES, { fetchPolicy: "cache-and-network", errorPolicy: "all" });
   const { currentUser, setCurrentUser } = useCurrentUser();
   const { getValues, control, trigger} = useForm({
     defaultValues: {

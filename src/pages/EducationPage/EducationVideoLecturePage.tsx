@@ -35,7 +35,6 @@ export function EducationVideoLecturePage() {
             <VideoLectureShortCard
               key={vlw.id}
               model={vlw!}
-              onOpen={() => { }}
               onSetWatched={() => setVideoLectureWatchedCallback(vlw as VideoLectureWithIsWatched)} />)
       }
     </Stack>

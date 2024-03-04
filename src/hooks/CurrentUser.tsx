@@ -16,6 +16,7 @@ export type CurrentUser = {
 
 type CurrentUserContexType = {
   currentUser: CurrentUser | null,
+  isAdmin: boolean,
   setCurrentUser: (user: CurrentUser) => void,
 }
 
@@ -35,6 +36,7 @@ export function CurrentUserProvider(props: CurrentUserProviderProps) {
         currentUserId: event.data.id,
         currentUserRole: event.data.role,
       }));
+      apolloClient.clearStore();
     }
     broadCastChannel.addEventListener("message", hadnleMessage);
     broadCastChannelRef.current = broadCastChannel;
@@ -52,11 +54,13 @@ export function CurrentUserProvider(props: CurrentUserProviderProps) {
       currentUserId: user.id,
       currentUserRole: user.role,
     }));
+    apolloClient.clearStore();
     broadCastChannelRef.current?.postMessage(user);
   }, [setCurrentUser, apolloClient]);
 
   const currentUserContext: CurrentUserContexType = useMemo(() => ({
     currentUser,
+    isAdmin: currentUser?.role == "HRManager",
     setCurrentUser: handleSetCurrentUser,
   }), [currentUser, handleSetCurrentUser]);
 

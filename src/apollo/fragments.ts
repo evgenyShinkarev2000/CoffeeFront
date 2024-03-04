@@ -33,3 +33,12 @@ fragment VideoLectureWithIsWatched on VideoLectureWithIsWatched{
     isWatched
   }
 `);
+
+export const TEXT_LECTURE_WITH_ISREAD_BY_CURRENT_PERSON = gql(`
+fragment TextLectureWithIsRead on TextLectureWithIsRead{
+  id
+  name
+  content
+  isRead
+}
+`);

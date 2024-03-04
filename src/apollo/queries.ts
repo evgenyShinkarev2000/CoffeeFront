@@ -49,3 +49,11 @@ query GetVideoLectureWatchedByCurrentPerson {
   }
 }
 `);
+
+export const GET_TEXT_LECTURE_WITH_ISREAD_BY_CURRENT_PERSON = gql(`
+query GetTextLectureReadByCurrentPerson{
+  textLectureWithIsReadByCurrentPerson{
+    ...TextLectureWithIsRead
+  }
+}
+`);

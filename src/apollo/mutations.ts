@@ -75,9 +75,18 @@ mutation RemovePerson($removePersonInput: RemovePersonInput!){
 
 export const SET_VIDEO_LECTURE_WATCHED = gql(`
 mutation SetVideoLectureWatched($setVideoLectureWatchedInput: SetVideoLectureWatchedInput!){
-    setVideoLectureWatched(setVideoLectureWatchedInput: $setVideoLectureWatchedInput){
-      id
-      isWatched
-    }
-  }`
-);
+  setVideoLectureWatched(setVideoLectureWatchedInput: $setVideoLectureWatchedInput){
+    id
+    isWatched
+  }
+}
+`);
+
+export const SET_TEXT_LECTURE_READ = gql(`
+mutation SetTextLectureRead($setTextLectureReadInput: SetTextLectureReadInput!){
+  setTextLectureRead(setTextLectureReadInput: $setTextLectureReadInput){
+    id,
+    isRead
+  }
+}
+`);

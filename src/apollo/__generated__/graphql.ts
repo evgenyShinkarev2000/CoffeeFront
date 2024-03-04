@@ -85,6 +85,7 @@ export type Mutations = {
   removePerson?: Maybe<Person>;
   removeTextLecture?: Maybe<TextLecture>;
   removeVideoLecture?: Maybe<VideoLecture>;
+  setTextLectureRead?: Maybe<TextLectureWithIsRead>;
   setVideoLectureWatched?: Maybe<VideoLectureWithIsWatched>;
   setVideoLectureWatchedAdmin?: Maybe<VideoLectureWithIsWatched>;
   updatePerson?: Maybe<Person>;
@@ -120,6 +121,11 @@ export type MutationsRemoveTextLectureArgs = {
 
 export type MutationsRemoveVideoLectureArgs = {
   removeVideoLectureInput?: InputMaybe<RemoveVideoLectureInput>;
+};
+
+
+export type MutationsSetTextLectureReadArgs = {
+  setTextLectureReadInput?: InputMaybe<SetTextLectureReadInput>;
 };
 
 
@@ -162,9 +168,15 @@ export type Queries = {
   __typename?: 'Queries';
   knownRoles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   people?: Maybe<Array<Maybe<Person>>>;
+  textLectureWithIsReadByCurrentPerson?: Maybe<Array<Maybe<TextLectureWithIsRead>>>;
   textLectures?: Maybe<Array<Maybe<TextLecture>>>;
   videoLectures?: Maybe<Array<Maybe<VideoLecture>>>;
   videoLecturesWithIsWatchedByCurrentPerson?: Maybe<Array<Maybe<VideoLectureWithIsWatched>>>;
+};
+
+
+export type QueriesTextLectureWithIsReadByCurrentPersonArgs = {
+  where?: InputMaybe<TextLectureWithIsReadFilterInput>;
 };
 
 
@@ -182,6 +194,11 @@ export type RemoveTextLectureInput = {
 
 export type RemoveVideoLectureInput = {
   id: Scalars['Int']['input'];
+};
+
+export type SetTextLectureReadInput = {
+  isRead: Scalars['Boolean']['input'];
+  textLecture?: InputMaybe<IdInput>;
 };
 
 export type SetVideoLectureWatchedAdminInput = {
@@ -216,6 +233,23 @@ export type TextLecture = {
   id: Scalars['Int']['output'];
   learnedPeople?: Maybe<Array<Maybe<Person>>>;
   name?: Maybe<Scalars['String']['output']>;
+};
+
+export type TextLectureWithIsRead = {
+  __typename?: 'TextLectureWithIsRead';
+  content?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  isRead: Scalars['Boolean']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type TextLectureWithIsReadFilterInput = {
+  and?: InputMaybe<Array<TextLectureWithIsReadFilterInput>>;
+  content?: InputMaybe<StringOperationFilterInput>;
+  id?: InputMaybe<IntOperationFilterInput>;
+  isRead?: InputMaybe<BooleanOperationFilterInput>;
+  name?: InputMaybe<StringOperationFilterInput>;
+  or?: InputMaybe<Array<TextLectureWithIsReadFilterInput>>;
 };
 
 export type UpdatePersonInput = {
@@ -269,6 +303,8 @@ export type VideoLectureOwnFragment = { __typename?: 'VideoLecture', id: number,
 export type PersonOwnFragment = { __typename?: 'Person', id: number, name?: string | null, surname?: string | null, patronymic?: string | null };
 
 export type VideoLectureWithIsWatchedFragment = { __typename?: 'VideoLectureWithIsWatched', id: number, name?: string | null, source?: string | null, isWatched: boolean };
+
+export type TextLectureWithIsReadFragment = { __typename?: 'TextLectureWithIsRead', id: number, name?: string | null, content?: string | null, isRead: boolean };
 
 export type AddTextLectureMutationVariables = Exact<{
   addTextLectureInput: AddTextLectureInput;
@@ -340,6 +376,13 @@ export type SetVideoLectureWatchedMutationVariables = Exact<{
 
 export type SetVideoLectureWatchedMutation = { __typename?: 'Mutations', setVideoLectureWatched?: { __typename?: 'VideoLectureWithIsWatched', id: number, isWatched: boolean } | null };
 
+export type SetTextLectureReadMutationVariables = Exact<{
+  setTextLectureReadInput: SetTextLectureReadInput;
+}>;
+
+
+export type SetTextLectureReadMutation = { __typename?: 'Mutations', setTextLectureRead?: { __typename?: 'TextLectureWithIsRead', id: number, isRead: boolean } | null };
+
 export type GetTextLecturesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -370,10 +413,16 @@ export type GetVideoLectureWatchedByCurrentPersonQueryVariables = Exact<{ [key: 
 
 export type GetVideoLectureWatchedByCurrentPersonQuery = { __typename?: 'Queries', videoLecturesWithIsWatchedByCurrentPerson?: Array<{ __typename?: 'VideoLectureWithIsWatched', id: number, name?: string | null, source?: string | null, isWatched: boolean } | null> | null };
 
+export type GetTextLectureReadByCurrentPersonQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTextLectureReadByCurrentPersonQuery = { __typename?: 'Queries', textLectureWithIsReadByCurrentPerson?: Array<{ __typename?: 'TextLectureWithIsRead', id: number, name?: string | null, content?: string | null, isRead: boolean } | null> | null };
+
 export const TextLectureOwnFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<TextLectureOwnFragment, unknown>;
 export const VideoLectureOwnFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VideoLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"VideoLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"source"}}]}}]} as unknown as DocumentNode<VideoLectureOwnFragment, unknown>;
 export const PersonOwnFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PersonOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Person"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}}]} as unknown as DocumentNode<PersonOwnFragment, unknown>;
 export const VideoLectureWithIsWatchedFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VideoLectureWithIsWatched"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"VideoLectureWithIsWatched"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"source"}},{"kind":"Field","name":{"kind":"Name","value":"isWatched"}}]}}]} as unknown as DocumentNode<VideoLectureWithIsWatchedFragment, unknown>;
+export const TextLectureWithIsReadFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureWithIsRead"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLectureWithIsRead"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}}]}}]} as unknown as DocumentNode<TextLectureWithIsReadFragment, unknown>;
 export const AddTextLectureDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddTextLecture"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addTextLectureInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddTextLectureInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addTextLecture"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addTextLectureInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addTextLectureInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextLectureOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<AddTextLectureMutation, AddTextLectureMutationVariables>;
 export const UpdateTextLectureDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateTextLecture"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateTextLectureInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateTextLectureInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateTextLecture"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateTextLectureInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateTextLectureInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextLectureOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<UpdateTextLectureMutation, UpdateTextLectureMutationVariables>;
 export const RemoveTextLectureDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveTextLecture"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeTextLectureInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveTextLectureInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeTextLecture"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"removeTextLectureInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeTextLectureInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextLectureOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<RemoveTextLectureMutation, RemoveTextLectureMutationVariables>;
@@ -384,12 +433,14 @@ export const AddPersonDocument = {"kind":"Document","definitions":[{"kind":"Oper
 export const UpdatePersonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePerson"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updatePersonInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePersonInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePerson"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updatePersonInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updatePersonInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PersonOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PersonOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Person"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}}]} as unknown as DocumentNode<UpdatePersonMutation, UpdatePersonMutationVariables>;
 export const RemovePersonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemovePerson"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removePersonInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemovePersonInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removePerson"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"removePersonInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removePersonInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PersonOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PersonOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Person"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}}]} as unknown as DocumentNode<RemovePersonMutation, RemovePersonMutationVariables>;
 export const SetVideoLectureWatchedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetVideoLectureWatched"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"setVideoLectureWatchedInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetVideoLectureWatchedInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setVideoLectureWatched"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"setVideoLectureWatchedInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"setVideoLectureWatchedInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isWatched"}}]}}]}}]} as unknown as DocumentNode<SetVideoLectureWatchedMutation, SetVideoLectureWatchedMutationVariables>;
+export const SetTextLectureReadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetTextLectureRead"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"setTextLectureReadInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetTextLectureReadInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setTextLectureRead"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"setTextLectureReadInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"setTextLectureReadInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}}]}}]}}]} as unknown as DocumentNode<SetTextLectureReadMutation, SetTextLectureReadMutationVariables>;
 export const GetTextLecturesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTextLectures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"textLectures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextLectureOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<GetTextLecturesQuery, GetTextLecturesQueryVariables>;
 export const GetVideoLecturesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVideoLectures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"videoLectures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VideoLectureOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VideoLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"VideoLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"source"}}]}}]} as unknown as DocumentNode<GetVideoLecturesQuery, GetVideoLecturesQueryVariables>;
 export const GetPeopleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPeople"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PersonOwn"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PersonOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Person"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}}]} as unknown as DocumentNode<GetPeopleQuery, GetPeopleQueryVariables>;
 export const GetKnownRolesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetKnownRoles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"knownRoles"}}]}}]} as unknown as DocumentNode<GetKnownRolesQuery, GetKnownRolesQueryVariables>;
 export const GetPeopleAndKnownRolesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPeopleAndKnownRoles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PersonOwn"}}]}},{"kind":"Field","name":{"kind":"Name","value":"knownRoles"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PersonOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Person"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}}]} as unknown as DocumentNode<GetPeopleAndKnownRolesQuery, GetPeopleAndKnownRolesQueryVariables>;
 export const GetVideoLectureWatchedByCurrentPersonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVideoLectureWatchedByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"videoLecturesWithIsWatchedByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"source"}},{"kind":"Field","name":{"kind":"Name","value":"isWatched"}}]}}]}}]} as unknown as DocumentNode<GetVideoLectureWatchedByCurrentPersonQuery, GetVideoLectureWatchedByCurrentPersonQueryVariables>;
+export const GetTextLectureReadByCurrentPersonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTextLectureReadByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"textLectureWithIsReadByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextLectureWithIsRead"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureWithIsRead"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLectureWithIsRead"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}}]}}]} as unknown as DocumentNode<GetTextLectureReadByCurrentPersonQuery, GetTextLectureReadByCurrentPersonQueryVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -467,6 +518,7 @@ export type Mutations = {
   removePerson?: Maybe<Person>;
   removeTextLecture?: Maybe<TextLecture>;
   removeVideoLecture?: Maybe<VideoLecture>;
+  setTextLectureRead?: Maybe<TextLectureWithIsRead>;
   setVideoLectureWatched?: Maybe<VideoLectureWithIsWatched>;
   setVideoLectureWatchedAdmin?: Maybe<VideoLectureWithIsWatched>;
   updatePerson?: Maybe<Person>;
@@ -502,6 +554,11 @@ export type MutationsRemoveTextLectureArgs = {
 
 export type MutationsRemoveVideoLectureArgs = {
   removeVideoLectureInput?: InputMaybe<RemoveVideoLectureInput>;
+};
+
+
+export type MutationsSetTextLectureReadArgs = {
+  setTextLectureReadInput?: InputMaybe<SetTextLectureReadInput>;
 };
 
 
@@ -544,9 +601,15 @@ export type Queries = {
   __typename?: 'Queries';
   knownRoles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   people?: Maybe<Array<Maybe<Person>>>;
+  textLectureWithIsReadByCurrentPerson?: Maybe<Array<Maybe<TextLectureWithIsRead>>>;
   textLectures?: Maybe<Array<Maybe<TextLecture>>>;
   videoLectures?: Maybe<Array<Maybe<VideoLecture>>>;
   videoLecturesWithIsWatchedByCurrentPerson?: Maybe<Array<Maybe<VideoLectureWithIsWatched>>>;
+};
+
+
+export type QueriesTextLectureWithIsReadByCurrentPersonArgs = {
+  where?: InputMaybe<TextLectureWithIsReadFilterInput>;
 };
 
 
@@ -564,6 +627,11 @@ export type RemoveTextLectureInput = {
 
 export type RemoveVideoLectureInput = {
   id: Scalars['Int']['input'];
+};
+
+export type SetTextLectureReadInput = {
+  isRead: Scalars['Boolean']['input'];
+  textLecture?: InputMaybe<IdInput>;
 };
 
 export type SetVideoLectureWatchedAdminInput = {
@@ -598,6 +666,23 @@ export type TextLecture = {
   id: Scalars['Int']['output'];
   learnedPeople?: Maybe<Array<Maybe<Person>>>;
   name?: Maybe<Scalars['String']['output']>;
+};
+
+export type TextLectureWithIsRead = {
+  __typename?: 'TextLectureWithIsRead';
+  content?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  isRead: Scalars['Boolean']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type TextLectureWithIsReadFilterInput = {
+  and?: InputMaybe<Array<TextLectureWithIsReadFilterInput>>;
+  content?: InputMaybe<StringOperationFilterInput>;
+  id?: InputMaybe<IntOperationFilterInput>;
+  isRead?: InputMaybe<BooleanOperationFilterInput>;
+  name?: InputMaybe<StringOperationFilterInput>;
+  or?: InputMaybe<Array<TextLectureWithIsReadFilterInput>>;
 };
 
 export type UpdatePersonInput = {

@@ -6,6 +6,7 @@ import { EducationAdminPage } from "./EducationAdminPage/EducationAdminPage";
 import { EducationPage } from "./EducationPage/EducationPage";
 import { PersonAdminPage } from "./PersonAdminPage/PersonAdminPage";
 import { ProfilePage } from "./ProfilePage/ProfilePage";
+import { useCurrentUser } from "src/hooks/CurrentUser";
 
 export enum PageName {
   EducationAdmin = "EducationAdmin",
@@ -16,6 +17,7 @@ export enum PageName {
 
 export function MainPage() {
   const [activePage, setActivePage] = useTabsAdapter(PageName);
+  const currentUser = useCurrentUser();
 
   return <>
     <div style={{ display: "grid", gridAutoRows: "min-content auto", maxHeight: "100vh", height: "100vh" }}>
@@ -23,9 +25,13 @@ export function MainPage() {
         <Container>
           <Stack justifyContent="space-between" direction="row" gap={1} alignItems="center">
             <Tabs value={activePage} onChange={setActivePage} >
-              <Tab value={PageName.EducationAdmin} label={"Обучение админ"} />
+              {
+                currentUser.isAdmin && <Tab value={PageName.EducationAdmin} label={"Обучение админ"} />
+              }
+              {
+                currentUser.isAdmin && <Tab value={PageName.PersonAdmin} label="Персонал админ" />
+              }
               <Tab value={PageName.Education} label={"Обучение"} />
-              <Tab value={PageName.PersonAdmin} label="Персонал админ" />
               <Tab value={PageName.Profile} label="Профиль" />
             </Tabs>
             <Box flex={1} />
@@ -35,11 +41,15 @@ export function MainPage() {
       </AppBar>
 
       <Routes>
-        <Route path={PageName.EducationAdmin + "/*"} Component={EducationAdminPage} />
+        {
+          currentUser.isAdmin && <Route path={PageName.EducationAdmin + "/*"} Component={EducationAdminPage} />
+        }
+        {
+          currentUser.isAdmin && <Route path={PageName.PersonAdmin + "/*"} Component={PersonAdminPage} />
+        }
         <Route path={PageName.Education + "/*"} Component={EducationPage} />
-        <Route path={PageName.PersonAdmin + "/*"} Component={PersonAdminPage} />
         <Route path={PageName.Profile + "/*"} Component={ProfilePage} />
-        <Route path="*" element={<Navigate to={PageName.EducationAdmin} />} />
+        <Route path="*" element={<Navigate to={PageName.Education} />} />
       </Routes>
     </div>
   </>
