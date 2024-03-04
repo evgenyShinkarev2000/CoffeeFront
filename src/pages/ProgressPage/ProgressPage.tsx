@@ -10,7 +10,17 @@ export function ProgressPage() {
 
   const personProgressCardModels = useMemo(() => {
     if (data) {
-      return data.allowedPeopleProgress!
+      const personProgressOrderedByPersonSurname = data.allowedPeopleProgress!
+        .map(app => app)
+        .sort((a, b) => {
+          if (a!.person!.surname! > b!.person!.surname!) {
+            return 1;
+          }
+
+          return -1;
+        });
+
+      return personProgressOrderedByPersonSurname
         .map(app => buildPersonProgressCardModels(app!, data.textLectures as TextLecture[], data.videoLectures as VideoLecture[]));
     }
 
