@@ -57,3 +57,28 @@ query GetTextLectureReadByCurrentPerson{
   }
 }
 `);
+
+export const GET_ALLOWED_PEOPLE_PROGRESS_AND_VIDEO_LECTURES_AND_TEXT_LECTURES = gql(`
+query GetAllowedPeopleProgressAndVideoLecturesAndTextLectures{
+  textLectures{
+      id
+      name
+      content
+  }
+  videoLectures{
+      id
+      name
+      source
+  }
+  allowedPeopleProgress{
+      person{
+          id
+          name
+          surname
+          patronymic
+      }
+      readTextLectureIds
+      watchedVideoLectureIds
+  }
+}
+`);

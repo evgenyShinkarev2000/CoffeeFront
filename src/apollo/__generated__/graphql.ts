@@ -164,8 +164,16 @@ export type Person = {
   surname?: Maybe<Scalars['String']['output']>;
 };
 
+export type PersonProgress = {
+  __typename?: 'PersonProgress';
+  person?: Maybe<Person>;
+  readTextLectureIds?: Maybe<Array<Scalars['Int']['output']>>;
+  watchedVideoLectureIds?: Maybe<Array<Scalars['Int']['output']>>;
+};
+
 export type Queries = {
   __typename?: 'Queries';
+  allowedPeopleProgress?: Maybe<Array<Maybe<PersonProgress>>>;
   knownRoles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   people?: Maybe<Array<Maybe<Person>>>;
   textLectureWithIsReadByCurrentPerson?: Maybe<Array<Maybe<TextLectureWithIsRead>>>;
@@ -418,6 +426,11 @@ export type GetTextLectureReadByCurrentPersonQueryVariables = Exact<{ [key: stri
 
 export type GetTextLectureReadByCurrentPersonQuery = { __typename?: 'Queries', textLectureWithIsReadByCurrentPerson?: Array<{ __typename?: 'TextLectureWithIsRead', id: number, name?: string | null, content?: string | null, isRead: boolean } | null> | null };
 
+export type GetAllowedPeopleProgressAndVideoLecturesAndTextLecturesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllowedPeopleProgressAndVideoLecturesAndTextLecturesQuery = { __typename?: 'Queries', textLectures?: Array<{ __typename?: 'TextLecture', id: number, name?: string | null, content?: string | null } | null> | null, videoLectures?: Array<{ __typename?: 'VideoLecture', id: number, name?: string | null, source?: string | null } | null> | null, allowedPeopleProgress?: Array<{ __typename?: 'PersonProgress', readTextLectureIds?: Array<number> | null, watchedVideoLectureIds?: Array<number> | null, person?: { __typename?: 'Person', id: number, name?: string | null, surname?: string | null, patronymic?: string | null } | null } | null> | null };
+
 export const TextLectureOwnFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<TextLectureOwnFragment, unknown>;
 export const VideoLectureOwnFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VideoLectureOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"VideoLecture"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"source"}}]}}]} as unknown as DocumentNode<VideoLectureOwnFragment, unknown>;
 export const PersonOwnFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PersonOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Person"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}}]} as unknown as DocumentNode<PersonOwnFragment, unknown>;
@@ -441,6 +454,7 @@ export const GetKnownRolesDocument = {"kind":"Document","definitions":[{"kind":"
 export const GetPeopleAndKnownRolesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPeopleAndKnownRoles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PersonOwn"}}]}},{"kind":"Field","name":{"kind":"Name","value":"knownRoles"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PersonOwn"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Person"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}}]} as unknown as DocumentNode<GetPeopleAndKnownRolesQuery, GetPeopleAndKnownRolesQueryVariables>;
 export const GetVideoLectureWatchedByCurrentPersonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVideoLectureWatchedByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"videoLecturesWithIsWatchedByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"source"}},{"kind":"Field","name":{"kind":"Name","value":"isWatched"}}]}}]}}]} as unknown as DocumentNode<GetVideoLectureWatchedByCurrentPersonQuery, GetVideoLectureWatchedByCurrentPersonQueryVariables>;
 export const GetTextLectureReadByCurrentPersonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTextLectureReadByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"textLectureWithIsReadByCurrentPerson"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextLectureWithIsRead"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextLectureWithIsRead"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextLectureWithIsRead"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}}]}}]} as unknown as DocumentNode<GetTextLectureReadByCurrentPersonQuery, GetTextLectureReadByCurrentPersonQueryVariables>;
+export const GetAllowedPeopleProgressAndVideoLecturesAndTextLecturesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllowedPeopleProgressAndVideoLecturesAndTextLectures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"textLectures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}},{"kind":"Field","name":{"kind":"Name","value":"videoLectures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"source"}}]}},{"kind":"Field","name":{"kind":"Name","value":"allowedPeopleProgress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"person"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"patronymic"}}]}},{"kind":"Field","name":{"kind":"Name","value":"readTextLectureIds"}},{"kind":"Field","name":{"kind":"Name","value":"watchedVideoLectureIds"}}]}}]}}]} as unknown as DocumentNode<GetAllowedPeopleProgressAndVideoLecturesAndTextLecturesQuery, GetAllowedPeopleProgressAndVideoLecturesAndTextLecturesQueryVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -597,8 +611,16 @@ export type Person = {
   surname?: Maybe<Scalars['String']['output']>;
 };
 
+export type PersonProgress = {
+  __typename?: 'PersonProgress';
+  person?: Maybe<Person>;
+  readTextLectureIds?: Maybe<Array<Scalars['Int']['output']>>;
+  watchedVideoLectureIds?: Maybe<Array<Scalars['Int']['output']>>;
+};
+
 export type Queries = {
   __typename?: 'Queries';
+  allowedPeopleProgress?: Maybe<Array<Maybe<PersonProgress>>>;
   knownRoles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   people?: Maybe<Array<Maybe<Person>>>;
   textLectureWithIsReadByCurrentPerson?: Maybe<Array<Maybe<TextLectureWithIsRead>>>;

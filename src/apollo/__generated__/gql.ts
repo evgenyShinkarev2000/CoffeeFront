@@ -36,6 +36,7 @@ const documents = {
     "\nquery GetPeopleAndKnownRoles{\n    people{\n      ...PersonOwn\n    }\n    knownRoles\n  }\n": types.GetPeopleAndKnownRolesDocument,
     "\nquery GetVideoLectureWatchedByCurrentPerson {\n  videoLecturesWithIsWatchedByCurrentPerson{\n    id\n    name\n    source\n    isWatched\n  }\n}\n": types.GetVideoLectureWatchedByCurrentPersonDocument,
     "\nquery GetTextLectureReadByCurrentPerson{\n  textLectureWithIsReadByCurrentPerson{\n    ...TextLectureWithIsRead\n  }\n}\n": types.GetTextLectureReadByCurrentPersonDocument,
+    "\nquery GetAllowedPeopleProgressAndVideoLecturesAndTextLectures{\n  textLectures{\n      id\n      name\n      content\n  }\n  videoLectures{\n      id\n      name\n      source\n  }\n  allowedPeopleProgress{\n      person{\n          id\n          name\n          surname\n          patronymic\n      }\n      readTextLectureIds\n      watchedVideoLectureIds\n  }\n}\n": types.GetAllowedPeopleProgressAndVideoLecturesAndTextLecturesDocument,
 };
 
 /**
@@ -144,6 +145,10 @@ export function gql(source: "\nquery GetVideoLectureWatchedByCurrentPerson {\n  
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\nquery GetTextLectureReadByCurrentPerson{\n  textLectureWithIsReadByCurrentPerson{\n    ...TextLectureWithIsRead\n  }\n}\n"): (typeof documents)["\nquery GetTextLectureReadByCurrentPerson{\n  textLectureWithIsReadByCurrentPerson{\n    ...TextLectureWithIsRead\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetAllowedPeopleProgressAndVideoLecturesAndTextLectures{\n  textLectures{\n      id\n      name\n      content\n  }\n  videoLectures{\n      id\n      name\n      source\n  }\n  allowedPeopleProgress{\n      person{\n          id\n          name\n          surname\n          patronymic\n      }\n      readTextLectureIds\n      watchedVideoLectureIds\n  }\n}\n"): (typeof documents)["\nquery GetAllowedPeopleProgressAndVideoLecturesAndTextLectures{\n  textLectures{\n      id\n      name\n      content\n  }\n  videoLectures{\n      id\n      name\n      source\n  }\n  allowedPeopleProgress{\n      person{\n          id\n          name\n          surname\n          patronymic\n      }\n      readTextLectureIds\n      watchedVideoLectureIds\n  }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

@@ -12,7 +12,6 @@ enum PageName {
 export function PersonAdminPage() {
   const [activePage, setActivePage] = useTabsAdapter(PageName);
 
-
   return <div style={{ display: "grid", gridAutoRows: "min-content auto" }}>
     <Box sx={{ borderBottom: 1, borderColor: "divider", height: "min-content" }}>
       <Container>

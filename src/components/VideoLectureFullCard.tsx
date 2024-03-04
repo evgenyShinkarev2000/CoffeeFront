@@ -5,7 +5,7 @@ import { useCurrentUser } from "src/hooks/CurrentUser"
 
 type VideoLectureFullCardProps = {
   model: DeepPartial<VideoLectureWithIsWatched>,
-  onSetWatched: () => any,
+  onSetWatched?: () => any,
 }
 
 export function VideoLectureFullCard(props: VideoLectureFullCardProps) {
@@ -20,10 +20,12 @@ export function VideoLectureFullCard(props: VideoLectureFullCardProps) {
           {
             currentUser.isAdmin && <Typography>id: {props.model.id}</Typography>
           }
-          <FormControlLabel
+          {
+            props.onSetWatched && <FormControlLabel
             label="просмотрено"
             labelPlacement="start"
             control={<Switch checked={props.model.isWatched!} onChange={props.onSetWatched} />} />
+          }
         </Stack>
       </Stack>
     </CardContent>
